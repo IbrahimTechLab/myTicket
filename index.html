@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Generator - Simple Stack</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo-t">T</div>
+            <h1>Ticket Generator</h1>
+        </header>
+
+        <main>
+            <section class="form-section card">
+                <h2>1. Configurer l'événement</h2>
+                <div class="grid-form">
+                    <input type="text" id="event-name" placeholder="Nom de l'événement" oninput="updatePreview()">
+                    <input type="date" id="event-date" oninput="updatePreview()">
+                    <input type="time" id="event-time" oninput="updatePreview()">
+                    <input type="text" id="event-location" placeholder="Lieu" oninput="updatePreview()">
+                </div>
+            </section>
+
+            <section class="form-section card">
+                <h2>2. Infos du Participant</h2>
+                <div class="grid-form">
+                    <input type="text" id="guest-firstname" placeholder="Prénom">
+                    <input type="text" id="guest-lastname" placeholder="Nom">
+                    <input type="text" id="guest-job" placeholder="Profession">
+                    <select id="guest-type">
+                        <option value="Standard">Pass Standard</option>
+                        <option value="VIP">Pass VIP</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+                </div>
+                <button class="btn-generate" onclick="generateTicket()">Générer le Ticket</button>
+            </section>
+
+            <section id="result-section" class="result-section" style="display: none;">
+                <div id="ticket-to-export" class="ticket-design">
+                    <div class="ticket-left">
+                        <div class="ticket-logo">T</div>
+                        <h3 id="preview-event-name">NOM DE L'EVENT</h3>
+                        <div class="ticket-info">
+                            <p><strong>NOM :</strong> <span id="preview-guest-name">---</span></p>
+                            <p><strong>POSTE :</strong> <span id="preview-guest-job">---</span></p>
+                            <p><strong>TYPE :</strong> <span id="preview-guest-type" class="badge">---</span></p>
+                        </div>
+                        <div class="ticket-footer">
+                            <span id="preview-date">---</span> | <span id="preview-location">---</span>
+                        </div>
+                    </div>
+                    <div class="ticket-right">
+                        <div id="qrcode"></div>
+                        <p class="scan-text">SCAN ME</p>
+                    </div>
+                </div>
+                <button class="btn-download" onclick="downloadTicket()">Télécharger en PNG</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
