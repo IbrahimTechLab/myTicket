@@ -11,61 +11,78 @@
 <body>
 
     <div class="container">
-        <header>
-            <div class="logo-t">T</div>
-            <h1>Ticket Generator</h1>
-        </header>
-
-        <main>
-            <section class="form-section card">
-                <h2>1. Configurer l'événement</h2>
+        <section id="setup-view" class="view">
+            <header>
+                <div class="logo-t">T</div>
+                <h1>Nouvel Événement</h1>
+                <p>Commencez par configurer les détails de votre événement.</p>
+            </header>
+            
+            <div class="card">
                 <div class="grid-form">
-                    <input type="text" id="event-name" placeholder="Nom de l'événement" oninput="updatePreview()">
-                    <input type="date" id="event-date" oninput="updatePreview()">
-                    <input type="time" id="event-time" oninput="updatePreview()">
-                    <input type="text" id="event-location" placeholder="Lieu" oninput="updatePreview()">
+                    <input type="text" id="event-name" placeholder="Nom de l'événement">
+                    <input type="date" id="event-date">
+                    <input type="time" id="event-time">
+                    <input type="text" id="event-location" placeholder="Lieu de l'événement">
                 </div>
-            </section>
+                <button class="btn-primary" onclick="initEvent()">Créer l'événement & Continuer</button>
+            </div>
+        </section>
 
-            <section class="form-section card">
-                <h2>2. Infos du Participant</h2>
-                <div class="grid-form">
-                    <input type="text" id="guest-firstname" placeholder="Prénom">
-                    <input type="text" id="guest-lastname" placeholder="Nom">
-                    <input type="text" id="guest-job" placeholder="Profession">
-                    <select id="guest-type">
-                        <option value="Standard">Pass Standard</option>
-                        <option value="VIP">Pass VIP</option>
-                        <option value="Staff">Staff</option>
-                    </select>
+        <section id="event-dashboard" class="view" style="display: none;">
+            <header class="dashboard-header">
+                <div class="logo-t small">T</div>
+                <div class="event-badge">
+                    <h2 id="active-event-title">---</h2>
+                    <p id="active-event-details">---</p>
                 </div>
-                <button class="btn-generate" onclick="generateTicket()">Générer le Ticket</button>
-            </section>
+                <button class="btn-outline" onclick="resetEvent()">Changer d'événement</button>
+            </header>
 
-            <section id="result-section" class="result-section" style="display: none;">
-                <div id="ticket-to-export" class="ticket-design">
-                    <div class="ticket-left">
-                        <div class="ticket-logo">T</div>
-                        <h3 id="preview-event-name">NOM DE L'EVENT</h3>
-                        <div class="ticket-info">
-                            <p><strong>NOM :</strong> <span id="preview-guest-name">---</span></p>
-                            <p><strong>POSTE :</strong> <span id="preview-guest-job">---</span></p>
-                            <p><strong>TYPE :</strong> <span id="preview-guest-type" class="badge">---</span></p>
+            <div class="main-layout">
+                <div class="form-container">
+                    <div class="card">
+                        <h3>Générer un Ticket</h3>
+                        <div class="grid-form">
+                            <input type="text" id="guest-firstname" placeholder="Prénom">
+                            <input type="text" id="guest-lastname" placeholder="Nom">
+                            <input type="text" id="guest-job" placeholder="Profession">
+                            <select id="guest-type">
+                                <option value="Standard">Pass Standard</option>
+                                <option value="VIP">Pass VIP</option>
+                                <option value="Staff">Staff</option>
+                            </select>
                         </div>
-                        <div class="ticket-footer">
-                            <span id="preview-date">---</span> | <span id="preview-location">---</span>
-                        </div>
-                    </div>
-                    <div class="ticket-right">
-                        <div id="qrcode"></div>
-                        <p class="scan-text">SCAN ME</p>
+                        <button class="btn-primary" onclick="generateTicket()">Créer le Ticket</button>
                     </div>
                 </div>
-                <button class="btn-download" onclick="downloadTicket()">Télécharger en PNG</button>
-            </section>
-        </main>
+
+                <div id="result-area" style="display: none;">
+                    <div id="ticket-to-export" class="ticket-design">
+                        <div class="ticket-left">
+                            <div class="ticket-logo">T</div>
+                            <h3 class="ticket-event-name">---</h3>
+                            <div class="ticket-info">
+                                <p><strong>PARTICIPANT :</strong> <span class="t-guest-name">---</span></p>
+                                <p><strong>POSTE :</strong> <span class="t-guest-job">---</span></p>
+                                <p><strong>TYPE :</strong> <span class="t-guest-type badge">---</span></p>
+                            </div>
+                            <div class="ticket-footer">
+                                <span class="t-event-date">---</span> | <span class="t-event-loc">---</span>
+                            </div>
+                        </div>
+                        <div class="ticket-right">
+                            <div id="qrcode"></div>
+                            <p class="scan-text">SCANNER À L'ENTRÉE</p>
+                        </div>
+                    </div>
+                    <button class="btn-download" onclick="downloadTicket()">Télécharger PNG</button>
+                </div>
+            </div>
+        </section>
     </div>
 
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
