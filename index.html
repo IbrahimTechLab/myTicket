@@ -3,107 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Générateur de Tickets</title>
+    <title>Billetterie - Zeinab's Twist</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <script src="libs/qrcode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
     <div class="app-container">
-        
-        <section id="setup-view" class="view-section">
-            <header class="main-header">
-                <div class="logo-t">T</div>
-                <h1>Nouvel Événement</h1>
-                <p>Configurez les détails pour activer le générateur.</p>
-            </header>
-            
-            <div class="card">
-                <div class="form-stack">
-                    <div class="input-group">
-                        <label>Nom de l'événement</label>
-                        <input type="text" id="event-name" placeholder="Ex: Gala Emeraude">
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label>Date</label>
-                            <input type="date" id="event-date">
-                        </div>
-                        <div class="input-group">
-                            <label>Heure</label>
-                            <input type="time" id="event-time">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label>Lieu</label>
-                        <input type="text" id="event-location" placeholder="Ex: Grand Hôtel">
-                    </div>
-                </div>
-                <button class="btn-primary btn-emerald" onclick="initEvent()">Lancer le générateur</button>
+        <header class="main-header">
+            <div class="logo-t">T</div>
+            <h1>Zeinab's Twist</h1>
+        </header>
+
+        <div class="card form-card">
+            <h3>Enregistrer un invité</h3>
+            <div class="form-stack">
+                <input type="text" id="guest-fullname" placeholder="Nom complet">
+                <input type="text" id="guest-profession" placeholder="Profession">
+                <select id="guest-type">
+                    <option value="PASS STANDARD">Pass Standard</option>
+                    <option value="PASS VIP">Pass VIP</option>
+                </select>
+                <button class="btn-primary btn-emerald" onclick="generateTicket()">Générer le Ticket</button>
             </div>
-        </section>
+        </div>
 
-        <section id="event-dashboard" class="view-section" style="display: none;">
-            <header class="dashboard-nav">
-                <div class="logo-t small">T</div>
-                <div class="event-summary">
-                    <h2 id="active-event-title">---</h2>
-                    <p id="active-event-info">---</p>
-                </div>
-                <button class="btn-text" onclick="resetApp()">Quitter</button>
-            </header>
-
-            <div class="dashboard-body">
-                <div class="card">
-                    <h3>Nouveau Ticket</h3>
-                    <div class="form-stack">
-                        <input type="text" id="guest-firstname" placeholder="Prénom">
-                        <input type="text" id="guest-lastname" placeholder="Nom">
-                        <input type="text" id="guest-job" placeholder="Profession">
-                        <select id="guest-type">
-                            <option value="Standard">Pass Standard</option>
-                            <option value="VIP">Pass VIP</option>
-                            <option value="Staff">Staff</option>
-                        </select>
-                        <button class="btn-primary btn-black" onclick="generateTicket()">Générer & Afficher</button>
-                    </div>
-                </div>
-
-                <div id="result-section" class="result-area" style="display: none;">
-                    <div class="ticket-wrapper">
-                        <div id="ticket-to-export" class="ticket-design">
-                            <div class="ticket-main">
-                                <div class="ticket-header">
-                                    <span class="ticket-logo">T</span>
-                                    <span class="badge-emeraude" id="preview-guest-type">Standard</span>
-                                </div>
-                                <h3 id="preview-event-name">EVENT NAME</h3>
-                                <div class="ticket-user">
-                                    <p class="user-name" id="preview-guest-name">Jean Dupont</p>
-                                    <p class="user-job" id="preview-guest-job">Directeur</p>
-                                </div>
-                                <div class="ticket-details">
-                                    <span id="preview-date">12/10/2026</span>
-                                    <span id="preview-location">Palais des Arts</span>
-                                </div>
-                            </div>
-                            <div class="ticket-side">
-                                <div id="qrcode"></div>
-                                <p class="qr-label">SCAN ME</p>
-                            </div>
+        <div id="result-section" class="result-area" style="display: none;">
+            <div class="ticket-wrapper">
+                <div id="ticket-to-export" class="ticket-design">
+                    <div class="ticket-main">
+                        <div class="ticket-header">
+                            <span class="ticket-logo">T</span>
+                            <span class="badge-emeraude" id="preview-guest-type">PASS</span>
+                        </div>
+                        <h2 class="event-title">ZEINAB'S TWIST</h2>
+                        <div class="event-info-minimal">
+                            <p>25 AVRIL 2026</p>
+                            <p>PARC MANGARI</p>
                         </div>
                     </div>
-                    <button class="btn-primary btn-gold" onclick="downloadTicket()">Télécharger le PNG</button>
+                    <div class="ticket-side">
+                        <div id="qrcode"></div>
+                        <p class="qr-label">SCANNEZ POUR INFOS</p>
+                    </div>
                 </div>
             </div>
-        </section>
-
+            <button class="btn-primary btn-gold" onclick="downloadTicket()">Télécharger le Ticket</button>
+        </div>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="data.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>

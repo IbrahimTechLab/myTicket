@@ -1,167 +1,35 @@
-/* Palette de couleurs */
 :root {
     --emeraude: #008f68;
     --gold: #d4af37;
     --black: #1a1a1a;
     --white: #ffffff;
-    --light-gray: #f4f7f6;
-    --border: #e0e0e0;
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Helvetica', sans-serif; background: #f0f0f0; display: flex; justify-content: center; padding: 20px; }
+.app-container { width: 100%; max-width: 450px; }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--light-gray);
-    color: var(--black);
-    margin: 0;
-    line-height: 1.5;
+.logo-t { font-size: 40px; font-weight: 900; color: var(--gold); transform: rotate(-15deg); margin-bottom: 10px; }
+.card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+.form-stack input, .form-stack select {
+    width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px;
 }
 
-.app-container {
-    max-width: 500px; /* Taille max type téléphone */
-    margin: 0 auto;
-    padding: 15px;
-}
-
-/* Logo T incliné Doré */
-.logo-t {
-    font-size: 45px;
-    font-weight: 900;
-    color: var(--gold);
-    transform: rotate(-15deg);
-    display: inline-block;
-    margin-bottom: 5px;
-}
-.logo-t.small { font-size: 28px; }
-
-/* Typographie */
-h1 { font-size: 1.8rem; margin: 0; font-weight: 800; }
-h3 { margin-top: 0; color: var(--emeraude); font-size: 1.1rem; }
-
-/* Cards */
-.card {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--border);
-    margin-bottom: 20px;
-}
-
-/* Formulaires Responsives */
-.form-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.form-row {
-    display: flex;
-    gap: 10px;
-}
-
-.form-row .input-group { flex: 1; }
-
-.input-group label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #666;
-    text-transform: uppercase;
-}
-
-input, select {
-    width: 100%;
-    padding: 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 1rem;
-    background: #fafafa;
-    transition: 0.2s;
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--emeraude);
-    background: #fff;
-}
-
-/* Boutons */
-.btn-primary {
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    width: 100%;
-    margin-top: 10px;
-}
-
+.btn-primary { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
 .btn-emerald { background: var(--emeraude); color: white; }
-.btn-black { background: var(--black); color: white; }
-.btn-gold { background: var(--gold); color: white; }
+.btn-gold { background: var(--gold); color: white; margin-top: 15px; }
 
-/* Dashboard Header */
-.dashboard-nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 10px 0;
-}
-
-.event-summary { flex: 1; overflow: hidden; }
-.event-summary h2 { font-size: 1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.event-summary p { font-size: 0.8rem; margin: 0; color: #777; }
-
-/* --- DESIGN DU TICKET (Mobile Friendly) --- */
-.ticket-wrapper {
-    width: 100%;
-    overflow-x: auto; /* Scroll horizontal si l'écran est trop petit */
-    padding: 10px 0;
-}
-
+/* TICKET DESIGN MINIMALISTE */
 .ticket-design {
-    display: flex;
-    background: var(--white);
-    width: 460px; /* Taille fixe pour l'export PNG propre */
-    height: 230px;
-    border-radius: 15px;
-    border: 1px solid #ddd;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: flex; width: 440px; height: 200px; background: white; 
+    border-radius: 12px; margin: 20px auto; overflow: hidden; border: 1px solid #eee;
 }
 
-.ticket-main {
-    flex: 2;
-    padding: 20px;
-    border-right: 1.5px dashed #ccc;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+.ticket-main { flex: 2; padding: 25px; border-right: 2px dashed #eee; display: flex; flex-direction: column; justify-content: space-between; }
+.event-title { font-size: 1.5rem; font-weight: 900; margin: 0; letter-spacing: 2px; }
+.event-info-minimal { font-size: 0.8rem; color: #777; font-weight: bold; }
 
-.ticket-side {
-    flex: 1;
-    background: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+.ticket-side { flex: 1; background: #fafafa; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.qr-label { font-size: 8px; margin-top: 10px; color: #aaa; letter-spacing: 1px; }
 
-.ticket-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.ticket-logo { font-weight: 900; font-size: 22px; color: var(--gold); transform: rotate(-15deg); }
-.badge-emeraude { background: var(--emeraude); color: white; padding: 3px 8px; border-radius: 5px; font-size: 10px; font-weight: bold; }
-
-.user-name { font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0; }
-.user-job { font-size: 0.9rem; color: #666; margin: 0; }
-.ticket-details { font-size: 0.75rem; color: #999; display: flex; gap: 10px; border-top: 1px solid #eee; padding-top: 10px; }
-
-#qrcode img { border: 4px solid white; border-radius: 5px; }
-.qr-label { font-size: 8px; font-weight: bold; margin-top: 8px; color: #bbb; }
-
-.btn-text { background: none; border: none; color: #cc0000; font-weight: bold; cursor: pointer; }
+.badge-emeraude { background: var(--emeraude); color: white; padding: 4px 10px; border-radius: 20px; font-size: 10px; }
