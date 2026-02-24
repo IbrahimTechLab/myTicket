@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Générateur de Tickets Pro</title>
+    <title>Event Manager Pro</title>
     <link rel="stylesheet" href="style.css">
     <script src="libs/qrcode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -14,32 +14,28 @@
     <div class="app-container">
         
         <section id="view-home" class="view-section">
-            <header class="header-main">
-                <h1>Mes Événements</h1>
-                <p>Sélectionnez un événement pour gérer les tickets.</p>
-            </header>
+            <div class="logo-t">T</div>
+            <h1>Mes Événements</h1>
+            <p style="color: #666;">Gérez vos accès en un clic.</p>
             
             <div id="event-list" class="event-grid"></div>
 
-            <div id="empty-state" class="empty-card">
-                <p>Aucun événement trouvé.</p>
-                <button class="btn-primary btn-emerald" onclick="showView('view-create')">Créer mon premier événement</button>
+            <div id="empty-state" class="card" style="margin-top:20px; text-align:center; display:none;">
+                <p>Vous n'avez pas encore d'événement.</p>
+                <button class="btn-primary btn-emerald" style="margin-top:15px;" onclick="showView('view-create')">Commencer</button>
             </div>
 
             <button class="fab-add" onclick="showView('view-create')">+</button>
         </section>
 
         <section id="view-create" class="view-section" style="display: none;">
-            <header class="header-main">
-                <button class="btn-back" onclick="showView('view-home')">← Retour</button>
-                <h1>Nouvel Événement</h1>
-            </header>
-            
+            <button class="btn-back" onclick="showView('view-home')">← Retour</button>
+            <h1>Nouveau Projet</h1>
             <div class="card">
                 <div class="form-stack">
                     <div class="input-group">
                         <label>Nom de l'événement</label>
-                        <input type="text" id="ev-name-in" placeholder="Ex: Zeinab's Twist">
+                        <input type="text" id="ev-name-in" placeholder="Ex: Salon du Digital">
                     </div>
                     <div class="input-group">
                         <label>Date</label>
@@ -47,83 +43,81 @@
                     </div>
                     <div class="input-group">
                         <label>Lieu</label>
-                        <input type="text" id="ev-loc-in" placeholder="Ex: Parc Mangari">
+                        <input type="text" id="ev-loc-in" placeholder="Ex: Palais des Congrès">
                     </div>
-                    <button class="btn-primary btn-emerald" onclick="handleCreateEvent()">Lancer le générateur</button>
+                    <button class="btn-primary btn-emerald" onclick="handleCreateEvent()">Lancer l'événement</button>
                 </div>
             </div>
         </section>
 
         <section id="view-dashboard" class="view-section" style="display: none;">
-            <header class="dash-header">
+            <div class="dash-header">
                 <button class="btn-back" onclick="showView('view-home')">← Accueil</button>
-                <h2 id="dash-title">Nom de l'événement</h2>
-                <p id="dash-meta">Infos de l'événement</p>
-            </header>
-
-            <div class="tabs">
-                <button class="tab-btn active" id="btn-tab-stats" onclick="switchTab('stats')">📊 Stats</button>
-                <button class="tab-btn" id="btn-tab-tickets" onclick="switchTab('tickets')">🎟️ Tickets</button>
+                <h2 id="dash-title">--</h2>
+                <p id="dash-meta">--</p>
             </div>
 
-            <div id="tab-stats" class="tab-pane">
+            <div class="tabs">
+                <button class="tab-btn active" id="btn-tab-stats" onclick="switchTab('stats')">Statistiques</button>
+                <button class="tab-btn" id="btn-tab-tickets" onclick="switchTab('tickets')">Tickets</button>
+            </div>
+
+            <div id="tab-stats">
                 <div class="stat-card-total">
                     <span id="stat-count">0</span>
                     <label>Tickets générés</label>
                 </div>
-                <div class="card chart-container">
-                    <h3>Répartition par Profession</h3>
+                <div class="card">
+                    <h3>Profils Participants</h3>
                     <div class="canvas-wrapper">
                         <canvas id="professionChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-tickets" class="tab-pane" style="display: none;">
+            <div id="tab-tickets" style="display: none;">
                 <div class="card">
-                    <h3>Nouveau Participant</h3>
+                    <h3>Ajouter un Invité</h3>
                     <div class="form-stack">
-                        <input type="text" id="guest-name-in" placeholder="Nom complet">
-                        <input type="text" id="guest-job-in" placeholder="Profession">
+                        <input type="text" id="guest-name-in" placeholder="Nom et Prénom">
+                        <input type="text" id="guest-job-in" placeholder="Profession (Ex: Designer)">
                         <select id="guest-type-in">
-                            <option value="Standard">Pass Standard</option>
+                            <option value="STANDARD">Pass Standard</option>
                             <option value="VIP">Pass VIP</option>
+                            <option value="PRESSE">Presse</option>
                         </select>
-                        <button class="btn-primary btn-black" onclick="handleGenerateTicket()">Générer & Afficher</button>
+                        <button class="btn-primary btn-black" onclick="handleGenerateTicket()">Générer le Ticket</button>
                     </div>
                 </div>
 
-                <div id="result-area" class="result-area" style="display: none;">
+                <div id="result-area" style="display: none;">
                     <div class="ticket-scroll-container">
                         <div id="ticket-to-export" class="ticket-design">
                             <div class="ticket-main">
-                                <div class="ticket-top">
-                                    <span class="badge" id="preview-type">Standard</span>
-                                </div>
-                                <h2 id="preview-ev-name">EVENT</h2>
+                                <div class="badge-emeraude" id="preview-type">STANDARD</div>
+                                <h2 id="preview-ev-name" style="font-size: 1.1rem; margin: 5px 0;">EVENT</h2>
                                 <div class="ticket-user">
-                                    <p class="u-name" id="preview-guest-name">Prénom Nom</p>
-                                    <p class="u-job" id="preview-guest-job">Profession</p>
+                                    <p class="user-name" id="preview-guest-name">Prénom Nom</p>
+                                    <p class="user-job" id="preview-guest-job">Profession</p>
                                 </div>
                                 <div class="ticket-footer">
-                                    <span id="preview-ev-date">Date</span>
+                                    <span id="preview-ev-date">00/00/0000</span>
                                     <span id="preview-ev-loc">Lieu</span>
                                 </div>
                             </div>
                             <div class="ticket-side">
                                 <div id="qrcode"></div>
-                                <p class="qr-label">SCAN ME</p>
+                                <p class="qr-label">SCAN VALIDE</p>
                             </div>
                         </div>
                     </div>
-                    <button class="btn-primary btn-gold" onclick="downloadTicket()">Télécharger en PNG</button>
+                    <button class="btn-primary btn-gold" onclick="downloadTicket()">Enregistrer l'image</button>
                 </div>
             </div>
         </section>
 
     </div>
 
-    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
